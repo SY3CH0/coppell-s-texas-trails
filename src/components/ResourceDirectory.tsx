@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { resources, categories } from "@/data/resources";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,45 +41,53 @@ const ResourceDirectory = () => {
   });
 
   return (
-    <section id="resources" ref={sectionRef} className="py-24 px-4 bg-gradient-to-b from-background to-charcoal/30">
-      <div className="max-w-7xl mx-auto">
-        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/30 px-4 py-2">
+    <section id="resources" ref={sectionRef} className="py-32 px-4 relative overflow-hidden">
+      {/* Organic Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] bg-primary/10 rounded-full blur-3xl animate-float-delayed" />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <Badge className="mb-6 bg-primary/15 text-primary border-2 border-primary/30 px-6 py-3 text-base font-serif rounded-full">
             Resource Directory
           </Badge>
-          <h2 className="text-5xl font-bold mb-4">
-            <span className="text-foreground">Discover </span>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-serif">
+            <span className="text-foreground">Find Your </span>
             <span className="text-primary">Community Resources</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Search and filter through our comprehensive directory of local services
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+            Search our comprehensive directory of local services and support
           </p>
         </div>
 
         {/* Search and Filter */}
-        <div className={`mb-12 space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`mb-16 space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Search Bar */}
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search resources, services, or keywords..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 h-14 text-lg bg-card/50 backdrop-blur-sm border-2 border-border focus:border-primary transition-all duration-300"
-            />
+          <div className="relative max-w-3xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-primary" />
+              <Input
+                type="text"
+                placeholder="Search by name, service, or keyword..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-16 h-16 text-lg bg-card/60 backdrop-blur-md border-2 border-border focus:border-primary rounded-3xl transition-all duration-300 font-light"
+              />
+            </div>
           </div>
 
-          {/* Category Filters */}
-          <div className="flex flex-wrap gap-3 justify-center">
+          {/* Category Pills */}
+          <div className="flex flex-wrap gap-3 justify-center max-w-5xl mx-auto">
             {categories.map((category) => (
               <Button
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
-                className={`transition-all duration-300 ${
+                className={`rounded-full px-6 py-3 text-base font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? "bg-primary hover:bg-primary/90 glow-effect"
+                    ? "bg-primary hover:bg-primary/90 text-primary-foreground glow-soft"
                     : "border-2 border-border hover:border-primary hover:bg-primary/10"
                 }`}
               >
@@ -91,86 +98,115 @@ const ResourceDirectory = () => {
         </div>
 
         {/* Results Count */}
-        <div className={`text-center mb-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <p className="text-muted-foreground">
-            Showing <span className="text-primary font-semibold">{filteredResources.length}</span> resources
+        <div className={`text-center mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <p className="text-muted-foreground text-lg font-light">
+            Showing <span className="text-primary font-semibold text-xl">{filteredResources.length}</span> {filteredResources.length === 1 ? 'resource' : 'resources'}
           </p>
         </div>
 
-        {/* Resource Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Resource Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredResources.map((resource, index) => (
-            <Card 
+            <div 
               key={resource.id}
-              className={`group border-2 border-border hover:border-primary/50 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:transform hover:scale-105 hover:glow-effect ${
+              className={`group relative transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${300 + (index * 50)}ms` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
-              
-              <CardHeader className="relative">
-                <div className="flex items-start justify-between mb-2">
-                  <Badge variant="outline" className="border-primary/30 text-primary">
-                    {resource.category}
-                  </Badge>
-                  <a 
-                    href={resource.website} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
-                  {resource.name}
-                </CardTitle>
-                <CardDescription className="mt-2">
-                  {resource.description}
-                </CardDescription>
-              </CardHeader>
-
-              <CardContent className="relative space-y-2">
-                <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <MapPin className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
-                  <span className="line-clamp-2">{resource.address}</span>
-                </div>
+              {/* Organic Card */}
+              <div className="relative h-full bg-card/60 backdrop-blur-md rounded-[2rem] p-6 border-2 border-border hover:border-primary/40 transition-all duration-500 overflow-hidden group-hover:glow-warm">
+                {/* Animated Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>{resource.phone}</span>
-                </div>
-                
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Clock className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>{resource.hours}</span>
-                </div>
+                {/* Decorative Element */}
+                <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
 
-                <div className="flex flex-wrap gap-2 pt-3">
-                  {resource.services.slice(0, 3).map((service) => (
+                <div className="relative z-10 h-full flex flex-col">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-4">
                     <Badge 
-                      key={service} 
-                      variant="secondary"
-                      className="text-xs bg-secondary/50"
+                      variant="outline" 
+                      className="border-primary/40 text-primary bg-primary/10 px-3 py-1 rounded-full text-sm"
                     >
-                      {service}
+                      {resource.category}
                     </Badge>
-                  ))}
-                  {resource.services.length > 3 && (
-                    <Badge variant="secondary" className="text-xs bg-secondary/50">
-                      +{resource.services.length - 3} more
-                    </Badge>
-                  )}
+                    <a 
+                      href={resource.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-primary/80 transition-colors group-hover:rotate-12 duration-300"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-3 font-serif">
+                    {resource.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-muted-foreground mb-4 leading-relaxed flex-grow font-light">
+                    {resource.description}
+                  </p>
+
+                  {/* Contact Info */}
+                  <div className="space-y-3 mb-4">
+                    <div className="flex items-start gap-2 text-sm">
+                      <div className="p-1.5 rounded-full bg-primary/10 mt-0.5">
+                        <MapPin className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <span className="text-muted-foreground line-clamp-2 flex-1">{resource.address}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="p-1.5 rounded-full bg-primary/10">
+                        <Phone className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <span className="text-muted-foreground">{resource.phone}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="p-1.5 rounded-full bg-primary/10">
+                        <Clock className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <span className="text-muted-foreground">{resource.hours}</span>
+                    </div>
+                  </div>
+
+                  {/* Services */}
+                  <div className="flex flex-wrap gap-2">
+                    {resource.services.slice(0, 3).map((service) => (
+                      <Badge 
+                        key={service} 
+                        variant="secondary"
+                        className="text-xs bg-secondary/50 border border-border/50 rounded-full px-3 py-1"
+                      >
+                        {service}
+                      </Badge>
+                    ))}
+                    {resource.services.length > 3 && (
+                      <Badge 
+                        variant="secondary" 
+                        className="text-xs bg-secondary/50 border border-border/50 rounded-full px-3 py-1"
+                      >
+                        +{resource.services.length - 3}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+
+                {/* Bottom Decoration */}
+                <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700" />
+              </div>
+            </div>
           ))}
         </div>
 
         {filteredResources.length === 0 && (
-          <div className="text-center py-16">
-            <p className="text-xl text-muted-foreground">
+          <div className="text-center py-20">
+            <p className="text-2xl text-muted-foreground font-light">
               No resources found. Try adjusting your search or filters.
             </p>
           </div>

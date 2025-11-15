@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Users, Building2, Calendar, Heart } from "lucide-react";
 
 const stats = [
@@ -62,8 +61,8 @@ const CommunityStats = () => {
   useEffect(() => {
     if (!isVisible) return;
 
-    const duration = 2000;
-    const steps = 60;
+    const duration = 2500;
+    const steps = 80;
     const stepDuration = duration / steps;
 
     stats.forEach((stat, index) => {
@@ -86,59 +85,78 @@ const CommunityStats = () => {
   }, [isVisible]);
 
   return (
-    <section ref={sectionRef} className="py-24 px-4 relative overflow-hidden bg-gradient-to-b from-background via-charcoal/20 to-background">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float-delayed" />
+    <section ref={sectionRef} className="py-32 px-4 relative overflow-hidden">
+      {/* Organic Background Shapes */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl animate-float-slow opacity-40" />
+        <div className="absolute bottom-1/4 right-0 w-[700px] h-[700px] bg-primary/5 rounded-full blur-3xl animate-float-delayed opacity-40" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse-glow" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-5xl font-bold mb-4">
-            <span className="text-foreground">Community </span>
+        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-serif">
+            <span className="text-foreground">Our </span>
             <span className="text-primary">Impact</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Together, we're building a stronger Coppell through collaboration and community support
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+            Together, we're making a meaningful difference in Coppell
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Organic Grid Layout */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <Card 
+              <div 
                 key={index}
-                className={`group relative overflow-hidden border-2 border-border hover:border-primary/50 bg-card/50 backdrop-blur-sm transition-all duration-700 hover:transform hover:scale-105 hover:glow-effect ${
+                className={`group relative transition-all duration-1000 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
-                {/* Animated Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <CardContent className="pt-6 text-center relative z-10">
-                  <div className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" />
-                  </div>
+                {/* Organic Card Shape */}
+                <div className="relative h-full bg-card/60 backdrop-blur-md rounded-[2.5rem] p-8 border-2 border-border hover:border-primary/40 transition-all duration-500 overflow-hidden group-hover:glow-warm">
+                  {/* Animated Background */}
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  />
                   
-                  <div className="text-5xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
-                    {counts[index].toLocaleString()}{stat.suffix}
-                  </div>
-                  
-                  <div className="text-lg font-semibold text-foreground mb-1">
-                    {stat.label}
-                  </div>
-                  
-                  <div className="text-sm text-muted-foreground">
-                    {stat.description}
-                  </div>
-                </CardContent>
+                  {/* Floating Decoration */}
+                  <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
 
-                {/* Corner Accent */}
-                <div className="absolute bottom-0 left-0 w-20 h-20 bg-primary/10 -ml-10 -mb-10 rotate-45 group-hover:bg-primary/20 transition-colors duration-500" />
-              </Card>
+                  <div className="relative z-10 text-center space-y-6">
+                    {/* Icon */}
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary/15 group-hover:bg-primary/25 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                      <Icon className="w-10 h-10 text-primary" />
+                    </div>
+                    
+                    {/* Counter */}
+                    <div className="space-y-2">
+                      <div 
+                        className="text-5xl md:text-6xl font-bold text-primary font-serif"
+                        style={{
+                          textShadow: '0 0 30px hsl(27 95% 38% / 0.3)',
+                        }}
+                      >
+                        {counts[index].toLocaleString()}{stat.suffix}
+                      </div>
+                      
+                      <div className="text-xl font-semibold text-foreground">
+                        {stat.label}
+                      </div>
+                      
+                      <div className="text-sm text-muted-foreground font-light leading-relaxed">
+                        {stat.description}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Decoration */}
+                  <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700" />
+                </div>
+              </div>
             );
           })}
         </div>

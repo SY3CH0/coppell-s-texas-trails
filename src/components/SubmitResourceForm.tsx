@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Send } from "lucide-react";
+import { Send, Heart } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -46,7 +46,6 @@ const SubmitResourceForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     console.log("Form submitted:", values);
@@ -60,46 +59,60 @@ const SubmitResourceForm = () => {
   };
 
   return (
-    <section id="submit" className="py-24 px-4 bg-gradient-to-b from-charcoal/30 to-background relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl animate-pulse-glow" />
+    <section id="submit" className="py-32 px-4 relative overflow-hidden">
+      {/* Organic Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute bottom-1/4 left-0 w-[700px] h-[700px] bg-primary/5 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse-glow" />
+      </div>
       
-      <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center mb-12 animate-fadeIn">
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/30 px-4 py-2">
-            Submit a Resource
+      <div className="max-w-5xl mx-auto relative z-10">
+        <div className="text-center mb-16 animate-fadeIn">
+          <Badge className="mb-6 bg-primary/15 text-primary border-2 border-primary/30 px-6 py-3 text-base font-serif rounded-full inline-flex items-center gap-2">
+            <Heart className="w-4 h-4 fill-primary/50" />
+            <span>Share a Resource</span>
           </Badge>
-          <h2 className="text-5xl font-bold mb-4">
-            <span className="text-foreground">Help Us </span>
-            <span className="text-primary">Grow Together</span>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-serif">
+            <span className="text-foreground">Strengthen Our </span>
+            <span className="text-primary">Community</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Know of a valuable community resource? Share it with us to help strengthen our community network.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+            Know a valuable local resource? Help your neighbors by sharing it with our community
           </p>
         </div>
 
-        <Card className="border-2 border-border bg-card/50 backdrop-blur-sm glow-effect">
-          <CardHeader>
-            <CardTitle className="text-2xl">Resource Information</CardTitle>
-            <CardDescription>
-              Fill out the form below to submit a new community resource for review
+        <Card className="border-2 border-border bg-card/60 backdrop-blur-md rounded-[3rem] glow-soft overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none" />
+          
+          <CardHeader className="relative z-10 text-center pb-8">
+            <CardTitle className="text-3xl font-bold font-serif">Resource Information</CardTitle>
+            <CardDescription className="text-lg font-light">
+              Fill out the details below and we'll review your submission
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="relative z-10">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 {/* Resource Details */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-primary">Resource Details</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 pb-2">
+                    <div className="h-1 w-12 bg-primary rounded-full" />
+                    <h3 className="text-xl font-semibold text-primary font-serif">Resource Details</h3>
+                  </div>
                   
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Resource Name *</FormLabel>
+                        <FormLabel className="text-base font-medium">Resource Name *</FormLabel>
                         <FormControl>
-                          <Input placeholder="Coppell Community Center" {...field} className="bg-input" />
+                          <Input 
+                            placeholder="Coppell Community Center" 
+                            {...field} 
+                            className="h-12 bg-input/50 border-2 rounded-2xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -111,9 +124,13 @@ const SubmitResourceForm = () => {
                     name="category"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Category *</FormLabel>
+                        <FormLabel className="text-base font-medium">Category *</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Non-Profits, Health Services, Education" {...field} className="bg-input" />
+                          <Input 
+                            placeholder="e.g., Non-Profits, Health Services, Education" 
+                            {...field} 
+                            className="h-12 bg-input/50 border-2 rounded-2xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -125,15 +142,15 @@ const SubmitResourceForm = () => {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Description *</FormLabel>
+                        <FormLabel className="text-base font-medium">Description *</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="Provide a brief description of the resource and its services..." 
-                            className="min-h-24 bg-input"
+                            className="min-h-28 bg-input/50 border-2 rounded-2xl resize-none"
                             {...field} 
                           />
                         </FormControl>
-                        <FormDescription>
+                        <FormDescription className="font-light">
                           Minimum 10 characters, maximum 500 characters
                         </FormDescription>
                         <FormMessage />
@@ -146,24 +163,32 @@ const SubmitResourceForm = () => {
                     name="address"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Address *</FormLabel>
+                        <FormLabel className="text-base font-medium">Address *</FormLabel>
                         <FormControl>
-                          <Input placeholder="123 Main St, Coppell, TX 75019" {...field} className="bg-input" />
+                          <Input 
+                            placeholder="123 Main St, Coppell, TX 75019" 
+                            {...field} 
+                            className="h-12 bg-input/50 border-2 rounded-2xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <FormField
                       control={form.control}
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone Number *</FormLabel>
+                          <FormLabel className="text-base font-medium">Phone Number *</FormLabel>
                           <FormControl>
-                            <Input placeholder="(972) 123-4567" {...field} className="bg-input" />
+                            <Input 
+                              placeholder="(972) 123-4567" 
+                              {...field} 
+                              className="h-12 bg-input/50 border-2 rounded-2xl"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -175,9 +200,13 @@ const SubmitResourceForm = () => {
                       name="website"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Website *</FormLabel>
+                          <FormLabel className="text-base font-medium">Website *</FormLabel>
                           <FormControl>
-                            <Input placeholder="https://example.com" {...field} className="bg-input" />
+                            <Input 
+                              placeholder="https://example.com" 
+                              {...field} 
+                              className="h-12 bg-input/50 border-2 rounded-2xl"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -190,9 +219,13 @@ const SubmitResourceForm = () => {
                     name="hours"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Hours of Operation *</FormLabel>
+                        <FormLabel className="text-base font-medium">Hours of Operation *</FormLabel>
                         <FormControl>
-                          <Input placeholder="Mon-Fri: 9AM-5PM" {...field} className="bg-input" />
+                          <Input 
+                            placeholder="Mon-Fri: 9AM-5PM" 
+                            {...field} 
+                            className="h-12 bg-input/50 border-2 rounded-2xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -204,15 +237,15 @@ const SubmitResourceForm = () => {
                     name="services"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Services Offered *</FormLabel>
+                        <FormLabel className="text-base font-medium">Services Offered *</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="List the main services offered (comma-separated)" 
-                            className="min-h-20 bg-input"
+                            className="min-h-24 bg-input/50 border-2 rounded-2xl resize-none"
                             {...field} 
                           />
                         </FormControl>
-                        <FormDescription>
+                        <FormDescription className="font-light">
                           Separate multiple services with commas
                         </FormDescription>
                         <FormMessage />
@@ -222,17 +255,24 @@ const SubmitResourceForm = () => {
                 </div>
 
                 {/* Submitter Information */}
-                <div className="space-y-4 pt-6 border-t border-border">
-                  <h3 className="text-lg font-semibold text-primary">Your Information</h3>
+                <div className="space-y-6 pt-6 border-t-2 border-border/50">
+                  <div className="flex items-center gap-3 pb-2">
+                    <div className="h-1 w-12 bg-primary rounded-full" />
+                    <h3 className="text-xl font-semibold text-primary font-serif">Your Information</h3>
+                  </div>
                   
                   <FormField
                     control={form.control}
                     name="submitterName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Your Name *</FormLabel>
+                        <FormLabel className="text-base font-medium">Your Name *</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe" {...field} className="bg-input" />
+                          <Input 
+                            placeholder="John Doe" 
+                            {...field} 
+                            className="h-12 bg-input/50 border-2 rounded-2xl"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -244,11 +284,16 @@ const SubmitResourceForm = () => {
                     name="submitterEmail"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Your Email *</FormLabel>
+                        <FormLabel className="text-base font-medium">Your Email *</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="john@example.com" {...field} className="bg-input" />
+                          <Input 
+                            type="email" 
+                            placeholder="john@example.com" 
+                            {...field} 
+                            className="h-12 bg-input/50 border-2 rounded-2xl"
+                          />
                         </FormControl>
-                        <FormDescription>
+                        <FormDescription className="font-light">
                           We'll use this to contact you about your submission
                         </FormDescription>
                         <FormMessage />
@@ -261,13 +306,13 @@ const SubmitResourceForm = () => {
                   type="submit" 
                   size="lg"
                   disabled={isSubmitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg font-semibold glow-effect hover:glow-strong transition-all duration-300"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-3xl py-8 text-xl font-semibold glow-soft hover:glow-effect transition-all duration-300 group"
                 >
                   {isSubmitting ? (
                     "Submitting..."
                   ) : (
                     <>
-                      <Send className="w-5 h-5 mr-2" />
+                      <Send className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
                       Submit Resource
                     </>
                   )}

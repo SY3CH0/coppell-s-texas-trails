@@ -8,79 +8,83 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    --background: 20 20% 6%;
+    --foreground: 30 25% 92%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
+    --card: 20 15% 10%;
+    --card-foreground: 30 25% 95%;
 
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 20 18% 8%;
+    --popover-foreground: 30 25% 95%;
 
-    --primary: 348 83% 47%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 27 95% 38%;
+    --primary-foreground: 30 25% 98%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 30 8% 25%;
+    --secondary-foreground: 30 25% 95%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 25 12% 18%;
+    --muted-foreground: 30 15% 60%;
 
-    --accent: 348 83% 47%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 27 95% 38%;
+    --accent-foreground: 30 25% 98%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 30 25% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 348 83% 47%;
+    --border: 25 15% 22%;
+    --input: 25 12% 15%;
+    --ring: 27 95% 38%;
 
-    --radius: 0.75rem;
+    --radius: 1.5rem;
 
-    --texas-red: 348 83% 47%;
-    --texas-red-glow: 348 83% 35%;
-    --deep-black: 0 0% 0%;
-    --charcoal: 0 0% 8%;
+    --burnt-orange: 27 95% 38%;
+    --burnt-orange-light: 27 90% 48%;
+    --burnt-orange-dark: 27 95% 28%;
+    --warm-cream: 30 25% 92%;
+    --deep-brown: 20 20% 12%;
+    --soft-tan: 30 20% 80%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(348 83% 10%) 50%, hsl(0 0% 0%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(0 0% 3%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(348 83% 47%) 0%, hsl(348 100% 35%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(20 20% 6%) 0%, hsl(27 40% 15%) 40%, hsl(20 20% 6%) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(27 95% 38% / 0.1) 0%, transparent 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(27 95% 38%) 0%, hsl(27 95% 48%) 100%);
+    --gradient-community: radial-gradient(circle at 50% 50%, hsl(27 95% 38% / 0.15), transparent 70%);
     
-    --shadow-glow: 0 0 30px hsla(348, 83%, 47%, 0.3);
-    --shadow-strong: 0 20px 60px hsla(348, 83%, 47%, 0.4);
+    --shadow-glow: 0 0 40px hsla(27, 95%, 38%, 0.4);
+    --shadow-soft: 0 20px 60px hsla(27, 95%, 38%, 0.2);
+    --shadow-warm: 0 10px 40px hsla(27, 70%, 30%, 0.3);
     
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    --background: 20 20% 6%;
+    --foreground: 30 25% 92%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
+    --card: 20 15% 10%;
+    --card-foreground: 30 25% 95%;
 
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 20 18% 8%;
+    --popover-foreground: 30 25% 95%;
 
-    --primary: 348 83% 47%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 27 95% 38%;
+    --primary-foreground: 30 25% 98%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 30 8% 25%;
+    --secondary-foreground: 30 25% 95%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 25 12% 18%;
+    --muted-foreground: 30 15% 60%;
 
-    --accent: 348 83% 47%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 27 95% 38%;
+    --accent-foreground: 30 25% 98%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 30 25% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 348 83% 47%;
+    --border: 25 15% 22%;
+    --input: 25 12% 15%;
+    --ring: 27 95% 38%;
   }
 }
 
@@ -104,37 +108,79 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-glow);
   }
   
-  .glow-strong {
-    box-shadow: var(--shadow-strong);
+  .glow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .glow-warm {
+    box-shadow: var(--shadow-warm);
   }
   
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite;
   }
   
   .animate-float-delayed {
-    animation: float 6s ease-in-out 2s infinite;
+    animation: float 8s ease-in-out 3s infinite;
+  }
+  
+  .animate-float-slow {
+    animation: float 12s ease-in-out 1s infinite;
   }
   
   .animate-pulse-glow {
-    animation: pulse-glow 3s ease-in-out infinite;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  
+  .animate-wave {
+    animation: wave 6s ease-in-out infinite;
   }
   
   @keyframes float {
     0%, 100% {
-      transform: translateY(0px);
+      transform: translateY(0px) rotate(0deg);
     }
-    50% {
-      transform: translateY(-20px);
+    33% {
+      transform: translateY(-30px) rotate(2deg);
+    }
+    66% {
+      transform: translateY(-15px) rotate(-2deg);
     }
   }
   
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 20px hsla(348, 83%, 47%, 0.3);
+      box-shadow: 0 0 30px hsla(27, 95%, 38%, 0.3);
+      opacity: 0.8;
     }
     50% {
-      box-shadow: 0 0 40px hsla(348, 83%, 47%, 0.6);
+      box-shadow: 0 0 60px hsla(27, 95%, 38%, 0.6);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes shimmer {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  @keyframes wave {
+    0%, 100% {
+      transform: translateX(0) translateY(0) scale(1);
+    }
+    33% {
+      transform: translateX(20px) translateY(-10px) scale(1.05);
+    }
+    66% {
+      transform: translateX(-20px) translateY(10px) scale(0.95);
     }
   }
 }
